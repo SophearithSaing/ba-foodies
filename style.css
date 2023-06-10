@@ -1,0 +1,14 @@
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Cascadia Code', sans-serif;
+}
+
+.container {
+  margin: auto;
+  padding: 50px 30px;
+  max-width: 1080px;
+}

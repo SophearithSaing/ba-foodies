@@ -3,18 +3,30 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Unnamed Application</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.cdnfonts.com/css/cascadia-code" rel="stylesheet">
+    <link rel="stylesheet" href="style.css" />
+    <link
+      href="https://fonts.cdnfonts.com/css/cascadia-code"
+      rel="stylesheet"
+    />
   </head>
   <body>
     <div class="container">
       <h1>Unnamed Application</h1>
+
       <div class="tabs types">
         <div class="indicator"></div>
         <p class="tab-item selected" data-type="equal">Equal</p>
         <p class="tab-item" data-type="individual">Individual</p>
         <p class="tab-item" data-type="custom">Custom</p>
       </div>
+
+      <div class="equal">
+        <input id="price" type="number" placeholder="Price" />
+        <input id="people" type="number" placeholder="People" />
+        <button class="calc">Calc</button>
+      </div>
+
+      <div class="output card"></div>
     </div>
 
     <script

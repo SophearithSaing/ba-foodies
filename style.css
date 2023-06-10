@@ -27,6 +27,18 @@ button:hover {
   color: #fff;
 }
 
+input::-webkit-inner-spin-button,
+input::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+}
+
+input {
+  width: 100px;
+  padding: 8px 16px;
+  border: 1px solid #000;
+  border-radius: 4px;
+}
+
 .container {
   margin: auto;
   padding: 50px 30px;
@@ -68,8 +80,24 @@ button:hover {
 }
 
 .card {
+  padding: 25px;
   border-radius: 4px;
   background-color: #fff;
   box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2),
     0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+}
+
+.output {
+  display: none;
+}
+
+.equal {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
+
+#equal-form {
+  display: flex;
+  gap: 8px;
 }

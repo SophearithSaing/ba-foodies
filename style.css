@@ -100,12 +100,12 @@ input {
 .output .total {
   width: fit-content;
   display: flex;
-  gap: 8px;
+  gap: 5px;
   margin-bottom: 8px;
 }
 
 .output .person .name {
-  width: 100px;
+  width: 60px;
 }
 
 .output .person .number {

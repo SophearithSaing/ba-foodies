@@ -33,7 +33,7 @@ input::-webkit-outer-spin-button {
 }
 
 input {
-  width: 100px;
+  width: 150px;
   padding: 8px 16px;
   border: 1px solid #000;
   border-radius: 4px;
@@ -41,7 +41,7 @@ input {
 
 .container {
   margin: auto;
-  padding: 50px 30px;
+  padding: 50px 15px;
   max-width: 1080px;
 }
 
@@ -57,7 +57,7 @@ input {
 .tabs .indicator {
   position: absolute;
   background: #000;
-  width: 130px;
+  width: 120px;
   height: 100%;
   border-radius: 4px;
   z-index: -1;
@@ -65,7 +65,7 @@ input {
 }
 
 .tab-item {
-  width: 130px;
+  width: 120px;
   padding: 8px 0;
   text-align: center;
   cursor: pointer;
@@ -91,7 +91,45 @@ input {
   display: none;
 }
 
-.equal {
+.output .content {
+  margin: auto;
+  width: fit-content;
+}
+
+.output .person,
+.output .total {
+  width: fit-content;
+  display: flex;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.output .person .name {
+  width: 100px;
+}
+
+.output .person .number {
+  width: 50px;
+  text-align: center;
+}
+
+.output .person .number:last-child,
+.output .total .number {
+  width: 50px;
+  margin-left: 8px;
+  text-align: left;
+}
+
+.output .total {
+  margin-bottom: 0;
+  padding-top: 8px;
+  width: 100%;
+  border-top: 1px solid black;
+  justify-content: space-between;
+}
+
+.row {
+  margin-bottom: 8px;
   display: flex;
   justify-content: center;
   gap: 8px;

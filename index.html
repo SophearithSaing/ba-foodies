@@ -20,13 +20,38 @@
         <p class="tab-item" data-type="custom">Custom</p>
       </div>
 
-      <div class="equal">
-        <input id="price" type="number" placeholder="Price" />
-        <input id="people" type="number" placeholder="People" />
-        <button class="calc">Calc</button>
+      <div class="equal form" style="display: none">
+        <div class="row">
+          <input id="price" type="number" placeholder="Price" />
+          <input id="people" type="number" placeholder="People" />
+        </div>
+        <div class="row">
+          <button class="calc">Calc</button>
+        </div>
       </div>
 
-      <div class="output card"></div>
+      <div class="individual form" style="display: none">
+        <div class="row">
+          <input id="individual-vat" type="number" placeholder="VAT %" />
+          <input
+            id="individual-service"
+            type="number"
+            placeholder="Service %"
+          />
+        </div>
+        <div class="row person">
+          <input id="person-1-name" type="text" placeholder="Person 1" />
+          <input id="person-1-amount" type="number" placeholder="Amount" />
+        </div>
+        <div class="row">
+          <button class="add">Add</button>
+          <button class="calc">Calc</button>
+        </div>
+      </div>
+
+      <div class="output card">
+        <div class="content"></div>
+      </div>
     </div>
 
     <script

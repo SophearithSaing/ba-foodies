@@ -96,6 +96,10 @@ input {
   margin-top: 20px;
 }
 
+.output h3 {
+  text-align: center;
+}
+
 .output .content {
   margin: auto;
   width: fit-content;

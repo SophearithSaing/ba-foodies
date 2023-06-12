@@ -25,11 +25,12 @@ $(() => {
 
   $('.equal .calc').on('click', function () {
     resetOutput();
+    addOutputTitle();
 
     const price = Number($('.equal #price').val());
     const people = Number($('.equal #people').val());
     const amount = price / people;
-    const html = `<p>Each person has to pay ${total.toFixed(2)} baht</p>`;
+    const html = `<p>Each person has to pay ${amount.toFixed(2)} baht</p>`;
     outputContent.append(html);
     output.slideDown();
   });
@@ -61,6 +62,7 @@ $(() => {
 
   $('.individual .calc').on('click', function () {
     resetOutput();
+    addOutputTitle();
 
     const vat = Number($('#individual-vat').val());
     const service = Number($('#individual-service').val());
@@ -172,6 +174,7 @@ $(() => {
 
   $('.other .calc').on('click', function () {
     resetOutput();
+    addOutputTitle();
 
     const vat = Number($('#other-vat').val());
     const service = Number($('#other-service').val());
@@ -262,6 +265,10 @@ $(() => {
   function resetOutput() {
     outputContent.empty();
     output.hide();
+  }
+
+  function addOutputTitle() {
+    outputContent.append(`<h3>${$('#output-title').val()}</h3>`);
   }
 
   function bindIndividualAddFoodEvent() {

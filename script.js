@@ -28,7 +28,7 @@ $(() => {
     const price = Number($('.equal #price').val());
     const people = Number($('.equal #people').val());
     const amount = price / people;
-    const html = `<p>Each person has to pay ${amount.toString()} baht</p>`;
+    const html = `<p>Each person has to pay ${total.toFixed(2)} baht</p>`;
     outputContent.append(html);
     output.slideDown();
   });
@@ -82,7 +82,7 @@ $(() => {
         const totalHtml = `
           <p class="total">
             <span class="name">Total</span>
-            <span class="number">${total}</span>
+            <span class="number">${total.toFixed(2)}</span>
           </p>
         `;
         outputContent.append(totalHtml);
@@ -154,6 +154,94 @@ $(() => {
     bindAdditionAddFoodEvent();
   });
 
+  $('.other .calc').on('click', function () {
+    resetOutput();
+
+    const vat = Number($('#other-vat').val());
+    const service = Number($('#other-service').val());
+    const peopleArr = [];
+    let numberOfPeople = Number($('#other-people').val());
+    let numberOfExcludedPeople = Number($('.exclusion-item').length);
+    let totalExcludedPeoplePrice = 0;
+    let sharedItemPrice = 0;
+    let total = 0;
+    const sharedItemsCount = $('.shared-items [id^="food-price-"]').length;
+
+    $('.shared-items [id^="food-price-"]').each(function () {
+      sharedItemPrice += Number($(this).val());
+    });
+
+    $('.exclusion-item').each(function (index) {
+      const number = index + 1;
+      const name = $(`#exclusion-${number}-name`).val();
+      const excludedItemsCount = $(
+        `.exclusion-item.item-${number} [id^="exclusion-${number}-price-"]`
+      ).length;
+      let excludedItemPrice = 0;
+
+      $(
+        `.exclusion-item.item-${number} [id^="exclusion-${number}-price-"]`
+      ).each(function (index) {
+        excludedItemPrice += Number($(this).val());
+      });
+
+      let price = (sharedItemPrice - excludedItemPrice) / numberOfPeople;
+      totalExcludedPeoplePrice += price;
+      const person = {
+        name,
+        price,
+      };
+      peopleArr.push(person);
+    });
+
+    const sharedPeoplePrice =
+      (sharedItemPrice - totalExcludedPeoplePrice) /
+      (numberOfPeople - numberOfExcludedPeople);
+    const person = {
+      name: 'Shared',
+      count: numberOfPeople - numberOfExcludedPeople,
+      price: sharedPeoplePrice,
+    };
+    peopleArr.unshift(person);
+
+    peopleArr.forEach((people, index) => {
+      const name = `${people.name}${
+        people.name === 'Shared' ? ` x ${people.count}` : ''
+      }`;
+      const amount = people.price;
+      const amountWithVat = (people.price * vat) / 100;
+      const amountWithService = (people.price * service) / 100;
+      const totalAmount = amount + amountWithVat + amountWithService;
+      const personHtml = `
+        <p class="person">
+          <span class="name">${name}</span>
+          <span class="number">${amount}</span>
+          <span>+</span>
+          <span class="number">${amountWithVat}</span>
+          <span>+</span>
+          <span class="number">${amountWithService}</span>
+          <span>=</span>
+          <span class="number">${totalAmount.toFixed(2)}</span>
+        </p>
+      `;
+
+      outputContent.append(personHtml);
+      total += people.name === 'Shared' ? totalAmount * people.count : totalAmount;
+
+      if (index === peopleArr.length - 1) {
+        const totalHtml = `
+        <p class="total">
+          <span class="name">Total</span>
+          <span class="number">${total.toFixed(2)}</span>
+        </p>
+      `;
+        outputContent.append(totalHtml);
+      }
+    });
+
+    output.slideDown();
+  });
+
   function resetOutput() {
     outputContent.empty();
     output.hide();
@@ -161,7 +249,6 @@ $(() => {
 
   function bindExclusionAddFoodEvent() {
     $('.other .exclusion-item .add-food').on('click', function () {
-      console.log('adding');
       const itemNumber = $(this).data('number');
       const rowCount = $(
         `.other .exclusion-item.item-${itemNumber} .row.food`
@@ -174,6 +261,7 @@ $(() => {
             type="text"
             placeholder="Food Price ${nextNumber}"
           />
+          <button class="remove-food"><i class="bi bi-dash"></i></button>
         </div>
       `;
       $(rowHtml).insertAfter(
@@ -188,7 +276,6 @@ $(() => {
 
   function bindAdditionAddFoodEvent() {
     $('.other .addition-item .add-food').on('click', function () {
-      console.log('adding');
       const itemNumber = $(this).data('number');
       const rowCount = $(
         `.other .addition-item.item-${itemNumber} .row.food`
@@ -201,6 +288,7 @@ $(() => {
             type="text"
             placeholder="Food Price ${nextNumber}"
           />
+          <button class="remove-food"><i class="bi bi-dash"></i></button>
         </div>
       `;
       $(rowHtml).insertAfter(

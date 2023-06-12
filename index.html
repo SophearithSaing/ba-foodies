@@ -43,10 +43,21 @@
             placeholder="Service %"
           />
         </div>
-        <div class="row person">
-          <input id="person-1-name" type="text" placeholder="Person 1" />
-          <input id="person-1-amount" type="number" placeholder="Amount" />
+        <div class="person item-1">
+          <div class="row">
+            <input id="person-1-name" type="text" placeholder="Person 1" />
+            <button class="add-food" data-number="1">
+              <i class="bi bi-plus"></i>
+            </button>
+          </div>
+          <div class="row food">
+            <input id="person-1-price-1" type="number" placeholder="Food Price 1" />
+            <button class="remove-food">
+              <i class="bi bi-dash"></i>
+            </button>
+          </div>
         </div>
+
         <div class="row">
           <button class="add">Add</button>
           <button class="calc">Calc</button>

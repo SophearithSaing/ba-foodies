@@ -5,6 +5,7 @@ $(() => {
   let data = $('.tab-item.selected').data('type');
   $(`.${data}`).fadeIn({ duration: 200 });
 
+  bindIndividualAddFoodEvent();
   bindAdditionAddFoodEvent();
   bindExclusionAddFoodEvent();
 
@@ -34,18 +35,28 @@ $(() => {
   });
 
   $('.individual .add').on('click', function () {
-    const rowCount = $('.individual .row.person').length;
+    const rowCount = $('.individual .person').length;
+    const nextNumber = rowCount + 1;
     const personRowHtml = `
-      <div class="row person">
-        <input id="person-${
-          rowCount + 1
-        }-name" type="text" placeholder="Person ${rowCount + 1}" />
-        <input id="person-${
-          rowCount + 1
-        }-amount" type="number" placeholder="Amount" />
+      <div class="person item-${nextNumber}">
+        <div class="row">
+          <input id="person-${nextNumber}-name" type="text" placeholder="Person ${nextNumber}" />
+          <button class="add-food" data-number="${nextNumber}">
+            <i class="bi bi-plus"></i>
+          </button>
+        </div>
+        <div class="row food">
+          <input id="person-${nextNumber}-price-1" type="number" placeholder="Food Price 1" />
+          <button class="remove-food">
+            <i class="bi bi-dash"></i>
+          </button>
+        </div>
       </div>
     `;
-    $(personRowHtml).insertAfter($('.individual .row.person')[rowCount - 1]);
+    $(personRowHtml).insertAfter($('.individual .person')[rowCount - 1]);
+
+    unbindIndividualAddFoodEvent();
+    bindIndividualAddFoodEvent();
   });
 
   $('.individual .calc').on('click', function () {
@@ -55,21 +66,26 @@ $(() => {
     const service = Number($('#individual-service').val());
     let total = 0;
 
-    $('.individual .row.person').each(function (index) {
+    $('.individual .person').each(function (index) {
       const number = index + 1;
       const name = $(`#person-${number}-name`).val();
-      const amount = Number($(`#person-${number}-amount`).val());
-      const amountWithVat = (amount * vat) / 100;
-      const amountWithService = (amount * service) / 100;
-      const totalAmount = amount + amountWithVat + amountWithService;
+      let amount = 0;
+
+      $(`.individual .person [id^="person-${number}-price-"]`).each(function () {
+        amount += Number($(this).val());
+      });
+
+      const serviceAmount = (amount * service) / 100;
+      const vatAmount = ((amount + serviceAmount) * vat) / 100;
+      const totalAmount = amount + serviceAmount + vatAmount;
       const personHtml = `
         <p class="person">
           <span class="name">${name}</span>
           <span class="number">${amount}</span>
           <span>+</span>
-          <span class="number">${amountWithVat}</span>
+          <span class="number">${serviceAmount}</span>
           <span>+</span>
-          <span class="number">${amountWithService}</span>
+          <span class="number">${vatAmount}</span>
           <span>=</span>
           <span class="number">${totalAmount}</span>
         </p>
@@ -78,7 +94,7 @@ $(() => {
       outputContent.append(personHtml);
       total += totalAmount;
 
-      if (index === $('.individual .row.person').length - 1) {
+      if (index === $('.individual .person').length - 1) {
         const totalHtml = `
           <p class="total">
             <span class="name">Total</span>
@@ -209,24 +225,25 @@ $(() => {
         people.name === 'Shared' ? ` x ${people.count}` : ''
       }`;
       const amount = people.price;
-      const amountWithVat = (people.price * vat) / 100;
-      const amountWithService = (people.price * service) / 100;
-      const totalAmount = amount + amountWithVat + amountWithService;
+      const serviceAmount = (people.price * service) / 100;
+      const vatAmount = ((amount + serviceAmount) * vat) / 100;
+      const totalAmount = amount + serviceAmount + vatAmount;
       const personHtml = `
         <p class="person">
           <span class="name">${name}</span>
           <span class="number">${amount}</span>
           <span>+</span>
-          <span class="number">${amountWithVat}</span>
+          <span class="number">${serviceAmount}</span>
           <span>+</span>
-          <span class="number">${amountWithService}</span>
+          <span class="number">${vatAmount}</span>
           <span>=</span>
           <span class="number">${totalAmount.toFixed(2)}</span>
         </p>
       `;
 
       outputContent.append(personHtml);
-      total += people.name === 'Shared' ? totalAmount * people.count : totalAmount;
+      total +=
+        people.name === 'Shared' ? totalAmount * people.count : totalAmount;
 
       if (index === peopleArr.length - 1) {
         const totalHtml = `
@@ -247,6 +264,33 @@ $(() => {
     output.hide();
   }
 
+  function bindIndividualAddFoodEvent() {
+    $('.individual .person .add-food').on('click', function () {
+      const itemNumber = $(this).data('number');
+      const rowCount = $(
+        `.individual .person.item-${itemNumber} .row.food`
+      ).length;
+      const nextNumber = rowCount + 1;
+      const rowHtml = `
+        <div class="row food">
+          <input
+            id="person-${itemNumber}-price-${nextNumber}"
+            type="number"
+            placeholder="Food Price ${nextNumber}"
+          />
+          <button class="remove-food"><i class="bi bi-dash"></i></button>
+        </div>
+      `;
+      $(rowHtml).insertAfter(
+        $(`.individual .person.item-${itemNumber} .row.food`)[rowCount - 1]
+      );
+    });
+  }
+
+  function unbindIndividualAddFoodEvent() {
+    $('.individual .person .add-food').off();
+  }
+
   function bindExclusionAddFoodEvent() {
     $('.other .exclusion-item .add-food').on('click', function () {
       const itemNumber = $(this).data('number');
@@ -258,7 +302,7 @@ $(() => {
         <div class="row food">
           <input
             id="exclusion-${itemNumber}-price-${nextNumber}"
-            type="text"
+            type="number"
             placeholder="Food Price ${nextNumber}"
           />
           <button class="remove-food"><i class="bi bi-dash"></i></button>
@@ -285,7 +329,7 @@ $(() => {
         <div class="row food">
           <input
             id="addition-${itemNumber}-price-${nextNumber}"
-            type="text"
+            type="number"
             placeholder="Food Price ${nextNumber}"
           />
           <button class="remove-food"><i class="bi bi-dash"></i></button>

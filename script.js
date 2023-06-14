@@ -76,9 +76,11 @@ $(() => {
       const name = $(`#person-${number}-name`).val();
       let amount = 0;
 
-      $(`.individual .person [id^="person-${number}-price-"]`).each(function () {
-        amount += Number($(this).val());
-      });
+      $(`.individual .person [id^="person-${number}-price-"]`).each(
+        function () {
+          amount += Number($(this).val());
+        }
+      );
 
       const serviceAmount = (amount * service) / 100;
       const vatAmount = ((amount + serviceAmount) * vat) / 100;
@@ -87,12 +89,21 @@ $(() => {
         <p class="person">
           <span class="name">${name}</span>
           <span class="number">${amount}</span>
-          <span>+</span>
-          <span class="number">${serviceAmount}</span>
-          <span>+</span>
-          <span class="number">${vatAmount}</span>
-          <span>=</span>
-          <span class="number">${totalAmount}</span>
+          ${
+            service
+              ? `<span>+</span><span class="number">${serviceAmount}</span>`
+              : ''
+          }
+          ${
+            vat
+              ? `<span>+</span><span class="number">${vatAmount}</span>`
+              : ''
+          }
+          ${
+            vat || service
+              ? `<span>=</span><span class="number">${totalAmount}</span>`
+              : ''
+          }
         </p>
       `;
 
@@ -292,7 +303,7 @@ $(() => {
           />
         </div>
       `;
-      
+
       if ($(`.individual .person.item-${itemNumber} .row.food`).length) {
         $(rowHtml).insertAfter(
           $(`.individual .person.item-${itemNumber} .row.food`)[rowCount - 1]

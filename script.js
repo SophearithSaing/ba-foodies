@@ -66,6 +66,7 @@ $(() => {
 
     const vat = Number($('#individual-vat').val());
     const service = Number($('#individual-service').val());
+    const discount = Number($('#individual-discount').val());
     let total = 0;
 
     $('.individual .person').each(function (index) {

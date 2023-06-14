@@ -41,16 +41,18 @@ $(() => {
     const personRowHtml = `
       <div class="person item-${nextNumber}">
         <div class="row">
+          <label>Name:</label>
           <input id="person-${nextNumber}-name" type="text" placeholder="Person ${nextNumber}" />
+          <button class="remove-food" data-number="${nextNumber}">
+              <i class="bi bi-dash"></i>
+            </button>
           <button class="add-food" data-number="${nextNumber}">
             <i class="bi bi-plus"></i>
           </button>
         </div>
         <div class="row food">
+          <label>Food 1:</label>
           <input id="person-${nextNumber}-price-1" type="number" placeholder="Food Price 1" />
-          <button class="remove-food">
-            <i class="bi bi-dash"></i>
-          </button>
         </div>
       </div>
     `;
@@ -274,6 +276,7 @@ $(() => {
 
   function bindIndividualAddFoodEvent() {
     $('.individual .person .add-food').on('click', function () {
+      console.log('clicked');
       const itemNumber = $(this).data('number');
       const rowCount = $(
         `.individual .person.item-${itemNumber} .row.food`
@@ -281,17 +284,32 @@ $(() => {
       const nextNumber = rowCount + 1;
       const rowHtml = `
         <div class="row food">
+          <label>Food ${nextNumber}:</label>
           <input
             id="person-${itemNumber}-price-${nextNumber}"
             type="number"
             placeholder="Food Price ${nextNumber}"
           />
-          <button class="remove-food"><i class="bi bi-dash"></i></button>
         </div>
       `;
-      $(rowHtml).insertAfter(
-        $(`.individual .person.item-${itemNumber} .row.food`)[rowCount - 1]
-      );
+      
+      if ($(`.individual .person.item-${itemNumber} .row.food`).length) {
+        $(rowHtml).insertAfter(
+          $(`.individual .person.item-${itemNumber} .row.food`)[rowCount - 1]
+        );
+      } else {
+        $(rowHtml).insertAfter(
+          $(`.individual .person.item-${itemNumber} .row`)
+        );
+      }
+    });
+
+    $('.individual .person .remove-food').on('click', function () {
+      const itemNumber = $(this).data('number');
+      const rowCount = $(
+        `.individual .person.item-${itemNumber} .row.food`
+      ).length;
+      $(`.individual .person.item-${itemNumber} .row.food`).last().remove();
     });
   }
 

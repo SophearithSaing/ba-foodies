@@ -141,10 +141,24 @@ input {
   margin: 8px 0;
   display: flex;
   justify-content: center;
-  gap: 8px;
+  flex-wrap: wrap;
+  column-gap: 8px;
+  row-gap: 4px;
+}
+
+.row label {
+  width: 100%;
 }
 
 .other .card {
   margin: 20px 0;
   padding: 20px;
+}
+
+.individual .person {
+  padding: 10px 0;
+}
+
+.individual .person:not(:nth-last-child(2)) {
+  border-bottom: 1px solid #000;
 }

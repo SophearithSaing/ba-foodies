@@ -315,6 +315,8 @@ $(() => {
       }
     });
 
+    $('.individual .person .remove-food').off();
+
     $('.individual .person .remove-food').on('click', function () {
       const itemNumber = $(this).data('number');
       const rowCount = $(

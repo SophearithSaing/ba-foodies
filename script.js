@@ -320,7 +320,7 @@ $(() => {
       const rowCount = $(
         `.individual .person.item-${itemNumber} .row.food`
       ).length;
-      $(`.individual .person.item-${itemNumber} .row.food`).last().remove();
+      $(`.individual .person.item-${itemNumber} .row.food`)[rowCount - 1].remove();
     });
   }
 

@@ -62,6 +62,11 @@ $(() => {
     bindIndividualAddFoodEvent();
   });
 
+  $('.individual .remove').on('click', function () {
+    const rowCount = $('.individual .person').length;
+    $('.individual .person').last().remove();
+  });
+
   $('.individual .calc').on('click', function () {
     resetOutput();
     addOutputTitle();
@@ -94,11 +99,7 @@ $(() => {
               ? `<span>+</span><span class="number">${serviceAmount}</span>`
               : ''
           }
-          ${
-            vat
-              ? `<span>+</span><span class="number">${vatAmount}</span>`
-              : ''
-          }
+          ${vat ? `<span>+</span><span class="number">${vatAmount}</span>` : ''}
           ${
             vat || service
               ? `<span>=</span><span class="number">${totalAmount}</span>`

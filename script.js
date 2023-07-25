@@ -131,7 +131,7 @@ $(() => {
       <div class="row food">
         <input id="food-price-${
           rowCount + 1
-        }" type="text" placeholder="Food Price ${rowCount + 1}" />
+        }" type="number" placeholder="Food Price ${rowCount + 1}" />
       </div>
     `;
     $(rowHtml).insertAfter($('.other .shared-items .row.food')[rowCount - 1]);
@@ -149,7 +149,7 @@ $(() => {
         <div class="row food">
           <input
             id="exclusion-${nextNumber}-price-1"
-            type="text"
+            type="number"
             placeholder="Food Price 1"
           />
           <button class="remove-food"><i class="bi bi-dash"></i></button>
@@ -174,7 +174,7 @@ $(() => {
         <div class="row food">
           <input
             id="addition-${nextNumber}-price-1"
-            type="text"
+            type="number"
             placeholder="Food Price 1"
           />
           <button class="remove-food"><i class="bi bi-dash"></i></button>

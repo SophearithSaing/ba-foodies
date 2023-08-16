@@ -96,13 +96,13 @@ $(() => {
           <span class="number">${amount}</span>
           ${
             service
-              ? `<span>+</span><span class="number">${serviceAmount}</span>`
+              ? `<span>+</span><span class="number">${serviceAmount.toFixed(2)}</span>`
               : ''
           }
-          ${vat ? `<span>+</span><span class="number">${vatAmount}</span>` : ''}
+          ${vat ? `<span>+</span><span class="number">${vatAmount.toFixed(2)}</span>` : ''}
           ${
             vat || service
-              ? `<span>=</span><span class="number">${totalAmount}</span>`
+              ? `<span>=</span><span class="number">${totalAmount.toFixed(2)}</span>`
               : ''
           }
         </p>
@@ -249,11 +249,11 @@ $(() => {
       const personHtml = `
         <p class="person">
           <span class="name">${name}</span>
-          <span class="number">${amount}</span>
+          <span class="number">${amount.toFixed(2)}</span>
           <span>+</span>
-          <span class="number">${serviceAmount}</span>
+          <span class="number">${serviceAmount.toFixed(2)}</span>
           <span>+</span>
-          <span class="number">${vatAmount}</span>
+          <span class="number">${vatAmount.toFixed(2)}</span>
           <span>=</span>
           <span class="number">${totalAmount.toFixed(2)}</span>
         </p>

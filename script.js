@@ -150,8 +150,6 @@ $(() => {
     bindExclusionAddFoodEvent();
   });
 
-  $('.other .exclusion .remove-exclusion-item').on('click', function () {});
-
   $('.other .exclusion .remove-exclusion-item').on('click', function () {
     const rowCount = $('.exclusion .exclusion-item').length;
     rowCount > 1 && $('.exclusion .exclusion-item').last().remove();
@@ -164,6 +162,7 @@ $(() => {
       <div class="addition-item item-${nextNumber}">
         <div class="row">
           <input id="addition-${nextNumber}-name" type="text" placeholder="Name ${nextNumber}" />
+          <button class="remove-food" data-number="${nextNumber}"><i class="bi bi-dash"></i></button>
           <button class="add-food" data-number="${nextNumber}"><i class="bi bi-plus"></i></button>
         </div>
         <div class="row food">
@@ -172,7 +171,6 @@ $(() => {
             type="number"
             placeholder="Food Price 1"
           />
-          <button class="remove-food"><i class="bi bi-dash"></i></button>
         </div>
       </div>
     `;
@@ -180,6 +178,11 @@ $(() => {
 
     unbindAdditionAddFoodEvent();
     bindAdditionAddFoodEvent();
+  });
+
+  $('.other .addition .remove-addition-item').on('click', function () {
+    const rowCount = $('.addition .addition-item').length;
+    rowCount > 1 && $('.addition .addition-item').last().remove();
   });
 
   $('.other .calc').on('click', function () {
@@ -236,13 +239,10 @@ $(() => {
       const personHtml = `
         <p class="person">
           <span class="name">${name}</span>
-          <span class="number">${amount.toFixed(2)}</span>
-          <span>+</span>
-          <span class="number">${serviceAmount.toFixed(2)}</span>
-          <span>+</span>
-          <span class="number">${vatAmount.toFixed(2)}</span>
-          <span>=</span>
-          <span class="number">${totalAmount.toFixed(2)}</span>
+          <span class="number">${amount}</span>
+          ${service ? `<span>+</span><span class="number">${serviceAmount.toFixed(2)}</span>` : ''}
+          ${vat ? `<span>+</span><span class="number">${vatAmount.toFixed(2)}</span>` : ''}
+          ${vat || service ? `<span>=</span><span class="number">${totalAmount.toFixed(2)}</span>` : ''}
         </p>
       `;
 
@@ -350,10 +350,17 @@ $(() => {
             type="number"
             placeholder="Food Price ${nextNumber}"
           />
-          <button class="remove-food"><i class="bi bi-dash"></i></button>
         </div>
       `;
       $(rowHtml).insertAfter($(`.other .addition-item.item-${itemNumber} .row.food`)[rowCount - 1]);
+
+      $('.other .addition-item .remove-food').off();
+
+      $('.other .addition-item .remove-food').on('click', function () {
+        const itemNumber = $(this).data('number');
+        const rowCount = $(`.other .addition-item.item-${itemNumber} .row.food`).length;
+        rowCount > 1 && $(`.other .addition-item.item-${itemNumber} .row.food`)[rowCount - 1].remove();
+      });
     });
   }
 

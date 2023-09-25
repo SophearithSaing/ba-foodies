@@ -91,7 +91,7 @@ $(() => {
       const personHtml = `
         <p class="person">
           <span class="name">${name}</span>
-          <span class="number">${amount}</span>
+          <span class="number">${amount.toFixed(2)}</span>
           ${service ? `<span>+</span><span class="number">${serviceAmount.toFixed(2)}</span>` : ''}
           ${vat ? `<span>+</span><span class="number">${vatAmount.toFixed(2)}</span>` : ''}
           ${vat || service ? `<span>=</span><span class="number">${totalAmount.toFixed(2)}</span>` : ''}
@@ -194,6 +194,7 @@ $(() => {
     const peopleArr = [];
     let numberOfPeople = Number($('#other-people').val());
     let numberOfExcludedPeople = Number($('.exclusion-item').length);
+    let numberOfAddedPeople = Number($('.addition-item').length);
     let totalExcludedPeoplePrice = 0;
     let sharedItemPrice = 0;
     let total = 0;
@@ -209,23 +210,50 @@ $(() => {
       const excludedItemsCount = $(`.exclusion-item.item-${number} [id^="exclusion-${number}-price-"]`).length;
       let excludedItemPrice = 0;
 
-      $(`.exclusion-item.item-${number} [id^="exclusion-${number}-price-"]`).each(function (index) {
-        excludedItemPrice += Number($(this).val());
-      });
+      if (name) {
+        $(`.exclusion-item.item-${number} [id^="exclusion-${number}-price-"]`).each(function (index) {
+          excludedItemPrice += Number($(this).val());
+        });
 
-      let price = (sharedItemPrice - excludedItemPrice) / numberOfPeople;
-      totalExcludedPeoplePrice += price;
-      const person = {
-        name,
-        price,
-      };
-      peopleArr.push(person);
+        let price = (sharedItemPrice - excludedItemPrice) / numberOfPeople;
+        totalExcludedPeoplePrice += price;
+        const person = {
+          name,
+          price,
+        };
+        peopleArr.push(person);
+      } else {
+        numberOfExcludedPeople -= 1;
+      }
+    });
+
+    $('.addition-item').each(function (index) {
+      const number = index + 1;
+      const name = $(`#addition-${number}-name`).val();
+      const addedItemsCount = $(`.addition-item.item-${number} [id^="addition-${number}-price-"]`).length;
+      let addedItemPrice = 0;
+
+      if (name) {
+        $(`.addition-item.item-${number} [id^="addition-${number}-price-"]`).each(function (index) {
+          addedItemPrice += Number($(this).val());
+        });
+
+        let price = (sharedItemPrice - totalExcludedPeoplePrice) / (numberOfPeople - numberOfExcludedPeople);
+        price += addedItemPrice;
+        const person = {
+          name,
+          price,
+        };
+        peopleArr.push(person);
+      } else {
+        numberOfAddedPeople -= 1;
+      }
     });
 
     const sharedPeoplePrice = (sharedItemPrice - totalExcludedPeoplePrice) / (numberOfPeople - numberOfExcludedPeople);
     const person = {
       name: 'Shared',
-      count: numberOfPeople - numberOfExcludedPeople,
+      count: numberOfPeople - numberOfExcludedPeople - numberOfAddedPeople,
       price: sharedPeoplePrice,
     };
     peopleArr.unshift(person);
@@ -239,7 +267,7 @@ $(() => {
       const personHtml = `
         <p class="person">
           <span class="name">${name}</span>
-          <span class="number">${amount}</span>
+          <span class="number">${amount.toFixed(2)}</span>
           ${service ? `<span>+</span><span class="number">${serviceAmount.toFixed(2)}</span>` : ''}
           ${vat ? `<span>+</span><span class="number">${vatAmount.toFixed(2)}</span>` : ''}
           ${vat || service ? `<span>=</span><span class="number">${totalAmount.toFixed(2)}</span>` : ''}

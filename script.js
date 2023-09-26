@@ -269,7 +269,7 @@ $(() => {
         hide = true;
       }
       const personHtml = `
-        <p class="person" ${hide ? 'hidden' : ''}>
+        <p class="person" ${hide ? 'styles="display: none;"' : ''}>
           <span class="name">${name}</span>
           <span class="number">${amount.toFixed(2)}</span>
           ${service ? `<span>+</span><span class="number">${serviceAmount.toFixed(2)}</span>` : ''}

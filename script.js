@@ -266,10 +266,10 @@ $(() => {
       const totalAmount = amount + serviceAmount + vatAmount;
       let hide = false;
       if (people.name === 'Shared' && !people.count) {
-        hidden = true;
+        hide = true;
       }
       const personHtml = `
-        <p class="person" ${hidden ? 'hidden' : ''}>
+        <p class="person" ${hide ? 'hidden' : ''}>
           <span class="name">${name}</span>
           <span class="number">${amount.toFixed(2)}</span>
           ${service ? `<span>+</span><span class="number">${serviceAmount.toFixed(2)}</span>` : ''}

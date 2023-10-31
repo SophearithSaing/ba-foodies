@@ -87,7 +87,8 @@ $(() => {
 
       const serviceAmount = (amount * service) / 100;
       const vatAmount = ((amount + serviceAmount) * vat) / 100;
-      const totalAmount = amount + serviceAmount + vatAmount;
+      const discountAmount = (amount + serviceAmount + vatAmount) * (discount / 100);
+      const totalAmount = amount + serviceAmount + vatAmount - discountAmount;
       const personHtml = `
         <p class="person">
           <span class="name">${name}</span>

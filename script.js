@@ -95,7 +95,7 @@ $(() => {
           <span class="number">${amount.toFixed(2)}</span>
           ${service ? `<span>+</span><span class="number">${serviceAmount.toFixed(2)}</span>` : ''}
           ${vat ? `<span>+</span><span class="number">${vatAmount.toFixed(2)}</span>` : ''}
-          ${vat || service ? `<span>=</span><span class="number">${totalAmount.toFixed(2)}</span>` : ''}
+          ${vat || service || discount ? `<span>=</span><span class="number">${totalAmount.toFixed(2)}</span>` : ''}
         </p>
       `;
 

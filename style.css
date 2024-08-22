@@ -114,11 +114,11 @@ input {
 }
 
 .output .person .name {
-  width: 60px;
+  min-width: 60px;
 }
 
 .output .person .number {
-  width: 50px;
+  min-width: 50px;
   text-align: center;
 }
 

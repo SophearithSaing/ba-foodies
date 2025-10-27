@@ -4,14 +4,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Unnamed Application</title>
     <link rel="stylesheet" href="style.css" />
-    <link
-      href="https://fonts.cdnfonts.com/css/cascadia-code"
-      rel="stylesheet"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
-    />
+    <link href="https://fonts.cdnfonts.com/css/cascadia-code" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" />
   </head>
   <body>
     <div class="container">
@@ -41,16 +35,8 @@
       <div class="individual form" style="display: none">
         <div class="row">
           <input id="individual-vat" type="number" placeholder="VAT %" />
-          <input
-            id="individual-service"
-            type="number"
-            placeholder="Service %"
-          />
-          <input
-            id="individual-discount"
-            type="number"
-            placeholder="Discount %"
-          />
+          <input id="individual-service" type="number" placeholder="Service %" />
+          <input id="individual-discount" type="number" placeholder="Discount %" />
         </div>
         <div class="person item-1">
           <div class="row">
@@ -65,11 +51,7 @@
           </div>
           <div class="row food">
             <label>Food 1:</label>
-            <input
-              id="person-1-price-1"
-              type="number"
-              placeholder="Food Price 1"
-            />
+            <input id="person-1-price-1" type="number" placeholder="Food Price 1" />
           </div>
         </div>
 
@@ -91,11 +73,7 @@
         </div>
 
         <div class="row">
-          <input
-            id="other-people"
-            type="number"
-            placeholder="Number of People"
-          />
+          <input id="other-people" type="number" placeholder="Number of People" />
         </div>
 
         <div class="card shared">
@@ -123,11 +101,7 @@
               </button>
             </div>
             <div class="row food">
-              <input
-                id="exclusion-1-price-1"
-                type="number"
-                placeholder="Food Price 1"
-              />
+              <input id="exclusion-1-price-1" type="number" placeholder="Food Price 1" />
             </div>
           </div>
           <div class="row">
@@ -149,11 +123,7 @@
               </button>
             </div>
             <div class="row food">
-              <input
-                id="addition-1-price-1"
-                type="number"
-                placeholder="Food Price 1"
-              />
+              <input id="addition-1-price-1" type="number" placeholder="Food Price 1" />
             </div>
           </div>
           <div class="row">
@@ -166,17 +136,15 @@
           <button class="calc">Calculate</button>
         </div>
       </div>
+    </div>
 
-      <div class="output card">
+    <div class="output-container">
+      <div class="container output card">
         <div class="content"></div>
       </div>
     </div>
 
-    <script
-      src="https://code.jquery.com/jquery-3.7.0.min.js"
-      integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g="
-      crossorigin="anonymous"
-    ></script>
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
     <script src="script.js"></script>
   </body>
 </html>

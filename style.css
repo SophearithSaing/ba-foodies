@@ -86,14 +86,24 @@ input {
 .card {
   padding: 25px;
   border-radius: 4px;
-  background-color: #fff;
-  box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2),
-    0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+
+  /* From https://css.glass */
+  background: rgba(255, 255, 255, 0.28);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(6.5px);
+  -webkit-backdrop-filter: blur(6.5px);
+}
+
+.output-container {
+  display: none;
+  padding: 24px;
+  background: #286ad3;
+  background: linear-gradient(90deg, rgba(40, 106, 211, 1) 0%, rgba(13, 165, 96, 1) 80%);
 }
 
 .output {
-  display: none;
-  margin-top: 20px;
+  position: relative;
 }
 
 .output h3 {
@@ -103,6 +113,7 @@ input {
 .output .content {
   margin: auto;
   width: fit-content;
+  color: #fff;
 }
 
 .output .person,
@@ -114,7 +125,7 @@ input {
 }
 
 .output .person .name {
-  min-width: 60px;
+  min-width: 100px;
 }
 
 .output .person .number {
@@ -133,7 +144,7 @@ input {
   margin-bottom: 0;
   padding-top: 8px;
   width: 100%;
-  border-top: 1px solid black;
+  border-top: 1px solid #fff;
   justify-content: space-between;
 }
 

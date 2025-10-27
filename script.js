@@ -1,5 +1,5 @@
 $(() => {
-  const output = $('.output');
+  const output = $('.output-container');
   const outputContent = $('.output .content');
 
   let data = $('.tab-item.selected').data('type');
